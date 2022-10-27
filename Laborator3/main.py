@@ -10,11 +10,10 @@ def exercitiul1(a, b):
 def exercitiul2(text):
     letters = {}
     for character in text:
-        if character.isalpha():
-            if character.lower() in letters:
-                letters[character.lower()] += 1
+            if character in letters:
+                letters[character] += 1
             else:
-                letters[character.lower()] = 0
+                letters[character] = 1
     return letters
 
 
@@ -23,6 +22,9 @@ def exercitiul3(dict1, dict2):
         return False
 
     for key in dict1:
+        if type(dict1[key]) is dict and type(dict2[key]) is dict:
+            if not exercitiul3(dict1[key],dict2[key]):
+                return False
         if dict1[key] != dict2[key]:
             return False
     return True
@@ -39,7 +41,6 @@ def exercitiul4(tag, content, **pairs):
 def exercitiul5(rules, dictionary):
     for key in dictionary:
         text = dictionary[key]
-        correct = False
         rule_key = None
         for rule in rules:
             if key == rule[0]:
@@ -144,8 +145,8 @@ def exercitiul9(*positions, **keywords):
 
 if __name__ == '__main__':
     print("exercitiul:1 ", exercitiul1([3, 4, 5], [2, 3, 4]))
-    print("exercitiul:2 ", exercitiul2("Ana has apples"))
-    print("exercitiul:3 ", exercitiul3({'number': 1, 'list': [2, 3]}, {'number': 1, 'list': [2, 3]}))
+    print("exercitiul:2 ", exercitiul2("Ana has apples."))
+    print("exercitiul:3 ", exercitiul3({'number': 1, 'list': [2, 3]}, {'number': 1, 'list': [2, 4]}))
     print("exercitiul:4 ", exercitiul4("a", "Hello there", href="http://python.org", _class="my-link", id="someid"))
     print("exercitiul:5 ", exercitiul5({("key1", "", "inside", ""), ("key2", "start", "middle", "winter")},
                                        {"key1": "come inside, it's too cold out", "key3": "this is not valid"}))
