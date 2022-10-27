@@ -83,8 +83,6 @@ def exercitiul5(rules, dictionary):
 
 
 def exercitiul6(elements):
-    unique = set(elements)
-
     seen = set()
     dupes = []
 
@@ -93,6 +91,11 @@ def exercitiul6(elements):
             dupes.append(x)
         else:
             seen.add(x)
+
+    unique=set()
+    for x in elements:
+        if x not in dupes:
+            unique.add(x)
 
     return len(unique), len(dupes)
 
