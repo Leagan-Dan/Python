@@ -94,6 +94,45 @@ def exercitiul5(target, to_search):
     return found_files
 
 
+def callback(error_instance):
+    error = None
+    if error_instance == IOError:
+        error = "Could not open the file"
+    elif error_instance == ValueError:
+        error = "The input isn't a file or a directory"
+    return error
+
+
+def exercitiul6(target, to_search):
+    found_files = []
+    opened=False
+    if os.path.isfile(target):
+        file = open(target, "r")
+        if file:
+            opened = True
+        text_list = file.readlines()
+        if not opened:
+            raise IOError(callback(IOError))
+        text = ""
+        for element in text_list:
+            text += element
+        if to_search in text:
+            found_files.append(file.name)
+        file.close()
+    elif os.path.isdir(target):
+        files = [file for file in listdir(target)]
+        for file1 in files:
+            text_list = exercitiul6(target + "\\" + file1, to_search)
+            if text_list:
+                found_file = ""
+                for element in text_list:
+                    found_file += element
+                found_files.append(found_file)
+    else:
+        raise ValueError(callback(ValueError)) from Exception
+    return found_files
+
+
 def exercitiul7(path):
     info = {}
     info["full_path"] = os.path.abspath(path)
@@ -117,7 +156,7 @@ def exercitiul7(path):
 def exercitiul8(dir_path):
     paths = []
     for file_name in os.listdir(dir_path):
-        file=os.path.join(dir_path,file_name)
+        file = os.path.join(dir_path, file_name)
         if os.path.isfile(file):
             paths.append(file)
     return paths
@@ -132,6 +171,9 @@ if __name__ == '__main__':
     # print(exercitiul4())
     print(exercitiul5("D:\git\Python\Laborator4\\fisier_exercitiul5.txt", "search"))
     print(exercitiul5("D:\git\Python\Laborator4\director_exercitiul5", "search"))
-    # print(exercitiul5("a","search"))
+    #print(exercitiul5("a","search"))
+    print(exercitiul6("D:\git\Python\Laborator4\\fisier_exercitiul5.txt", "search"))
+    print(exercitiul6("D:\git\Python\Laborator4\director_exercitiul5", "search"))
+    #print(exercitiul6("a", "search"))
     print(exercitiul7("D:\git\Python\Laborator4\\fisier_exercitiul7.txt"))
     print(exercitiul8("D:\\git\Python\\Laborator4\\director_exercitiul8"))
