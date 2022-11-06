@@ -74,25 +74,36 @@ def exercitiul5(list1):
 def exercitiul6(numbers):
     odds = list(filter(lambda x: (x % 2 == 0), numbers))
     evens = list(filter(lambda x: (x % 2 == 1), numbers))
-    return list(map(lambda odd,even: (odd,even),odds,evens))
+    return list(map(lambda odd, even: (odd, even), odds, evens))
+
 
 def exercitiul7(**kwargs):
-    limit=1000
+    limit = 1000
 
-    fib_list1=[0,1]
+    fib_list1 = [0, 1]
     [fib_list1.append(fib_list1[k - 1] + fib_list1[k - 2]) for k in range(2, 1000)]
 
     fib_list = []
     if "filters" in kwargs.keys():
-        [fib_list.append(fib_list1[k]) for k in range(0,len(fib_list1)) if eval(kwargs["filters"])]
+        [fib_list.append(fib_list1[k]) for k in range(0, len(fib_list1)) if eval(kwargs["filters"])]
     else:
-        [fib_list.append(fib_list1[k]) for k in range(0,len(fib_list1))]
+        [fib_list.append(fib_list1[k]) for k in range(0, len(fib_list1))]
 
     if "offset" in kwargs.keys():
-        fib_list=fib_list[kwargs["offset"]:]
+        fib_list = fib_list[kwargs["offset"]:]
     if "limit" in kwargs.keys():
-        fib_list=fib_list[:kwargs["limit"]]
+        fib_list = fib_list[:kwargs["limit"]]
     return fib_list
+
+def exercitiul9(**kwargs):
+    pairs = kwargs.values()
+    for value in kwargs.values():
+        pairs=value
+
+    newlist = []
+    [newlist.append({"sum": k[0] + k[1], "prod": k[0] * k[1], "pow": k[0] ** k[1]}) for k in pairs]
+    return newlist
+
 
 if __name__ == '__main__':
     # module1.utils.exercitiul1a()
@@ -106,4 +117,5 @@ if __name__ == '__main__':
                       dictionar={'ab': 4, 'ac': 'abcde', 'fg': 'abc'}, test={1: 1, 'test': True}))
     print(exercitiul5([1, "2", {"3": "a"}, {4, 5}, 5, 6, 3.0]))
     print(exercitiul6([1, 3, 5, 2, 8, 7, 4, 10, 9, 2]))
-    print(exercitiul7(filters="lambda item: item % 2 == 0",offset=10,limit=2))
+    print(exercitiul7(filters="lambda item: item % 2 == 0", offset=10, limit=2))
+    print(exercitiul9(pairs=[(5, 2), (19, 1), (30, 6), (2, 2)]))
