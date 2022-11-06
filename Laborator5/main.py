@@ -1,5 +1,6 @@
 import numbers
 
+
 def exercitiul2_function(*args, **kwargs):
     sum1 = 0
     for arg in args:
@@ -31,12 +32,7 @@ def exercitiul3_method2(text):
 
 def exercitiul3_method3(text):
     vocals = ['a', 'e', 'i', 'o', 'u']
-    list1 = [(lambda c: c if (c.lower() in vocals) else None)(c) for c in text]
-    aux_list1 = list1.copy()
-    for element in aux_list1:
-        if not element:
-            list1.remove(element)
-    return list1
+    return list(filter(lambda c: c.lower() in vocals, text))
 
 
 def exercitiul4(*args, **kwargs):
@@ -66,12 +62,37 @@ def exercitiul4(*args, **kwargs):
 
     return newlist
 
+
 def exercitiul5(list1):
-    newlist=[]
+    newlist = []
     for element in list1:
-        if isinstance(element,numbers.Number):
+        if isinstance(element, numbers.Number):
             newlist.append(element)
     return newlist
+
+
+def exercitiul6(numbers):
+    odds = list(filter(lambda x: (x % 2 == 0), numbers))
+    evens = list(filter(lambda x: (x % 2 == 1), numbers))
+    return list(map(lambda odd,even: (odd,even),odds,evens))
+
+def exercitiul7(**kwargs):
+    limit=1000
+
+    fib_list1=[0,1]
+    [fib_list1.append(fib_list1[k - 1] + fib_list1[k - 2]) for k in range(2, 1000)]
+
+    fib_list = []
+    if "filters" in kwargs.keys():
+        [fib_list.append(fib_list1[k]) for k in range(0,len(fib_list1)) if eval(kwargs["filters"])]
+    else:
+        [fib_list.append(fib_list1[k]) for k in range(0,len(fib_list1))]
+
+    if "offset" in kwargs.keys():
+        fib_list=fib_list[kwargs["offset"]:]
+    if "limit" in kwargs.keys():
+        fib_list=fib_list[:kwargs["limit"]]
+    return fib_list
 
 if __name__ == '__main__':
     # module1.utils.exercitiul1a()
@@ -84,3 +105,5 @@ if __name__ == '__main__':
     print(exercitiul4({1: 2, 3: 4, 5: 6}, {'a': 5, 'b': 7, 'c': 'e'}, {2: 3}, [1, 2, 3], {'abc': 4, 'def': 5}, 3764,
                       dictionar={'ab': 4, 'ac': 'abcde', 'fg': 'abc'}, test={1: 1, 'test': True}))
     print(exercitiul5([1, "2", {"3": "a"}, {4, 5}, 5, 6, 3.0]))
+    print(exercitiul6([1, 3, 5, 2, 8, 7, 4, 10, 9, 2]))
+    print(exercitiul7(filters="lambda item: item % 2 == 0",offset=10,limit=2))
