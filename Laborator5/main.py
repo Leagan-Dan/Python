@@ -1,5 +1,6 @@
 import numbers
-
+import module1.utils
+import module1.app
 
 def exercitiul2_function(*args, **kwargs):
     sum1 = 0
@@ -165,8 +166,8 @@ def exercitiul9(**kwargs):
 
 
 if __name__ == '__main__':
-    # module1.utils.exercitiul1a()
-    # module1.app.input_loop()
+    module1.utils.exercitiul1a()
+    module1.app.input_loop()
     print(exercitiul2_function(1, 2, c=3, d=4))
     print(exercitiul2_lambda(1, 2, c=3, d=4))
     print(exercitul3_method1("Programming in Python is fun"))
