@@ -95,10 +95,69 @@ def exercitiul7(**kwargs):
         fib_list = fib_list[:kwargs["limit"]]
     return fib_list
 
+
+def multiply_by_two(x):
+    return x * 2
+
+
+def add_numbers(a, b):
+    return a + b
+
+
+def print_arguments(function):
+    def function1(*args, **kwargs):
+        print(args, kwargs)
+        return function(*args, **kwargs)
+
+    return function1
+
+
+def multiply_by_three(x):
+    return x * 3
+
+
+def exercitiul8a():
+    augmented_multiply_by_two = print_arguments(multiply_by_two)
+    x = augmented_multiply_by_two(10)
+    print(x)
+    augmented_add_numbers = print_arguments(add_numbers)
+    x = augmented_add_numbers(3, 4)
+    print(x)
+
+
+def multiply_output(function):
+    def function2(x):
+        return 2 * function(x)
+
+    return function2
+
+
+def exercitiul8b():
+    augmented_multiply_by_three = multiply_output(multiply_by_three)
+    x = augmented_multiply_by_three(10)
+    print(x)
+
+
+def augment_function(function, list_of_functions):
+    def function3(a, b):
+        aux = function
+        for function_parameter in list_of_functions:
+            aux=function_parameter(aux)
+        return aux
+
+    return function3
+
+
+def exercitiul8c():
+    decorated_function = augment_function(add_numbers, [print_arguments, multiply_output])
+    x = decorated_function(3, 4)
+    print(x)
+
+
 def exercitiul9(**kwargs):
     pairs = kwargs.values()
     for value in kwargs.values():
-        pairs=value
+        pairs = value
 
     newlist = []
     [newlist.append({"sum": k[0] + k[1], "prod": k[0] * k[1], "pow": k[0] ** k[1]}) for k in pairs]
@@ -118,4 +177,7 @@ if __name__ == '__main__':
     print(exercitiul5([1, "2", {"3": "a"}, {4, 5}, 5, 6, 3.0]))
     print(exercitiul6([1, 3, 5, 2, 8, 7, 4, 10, 9, 2]))
     print(exercitiul7(filters="lambda item: item % 2 == 0", offset=10, limit=2))
+    exercitiul8a()
+    exercitiul8b()
+    #exercitiul8c()
     print(exercitiul9(pairs=[(5, 2), (19, 1), (30, 6), (2, 2)]))
